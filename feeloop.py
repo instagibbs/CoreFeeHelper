@@ -38,7 +38,7 @@ while True:
 
         tweet = ""
         for estimate in [nextblock, hour, six_hours, twelve_hours, day, half_week, week]:
-            tweet += estimate[0]+get_rounded_feerate(estimate[1]) + " ${}".format(round(price_for_250*float(estimate[1]),2))+"\n"
+            tweet += estimate[0]+get_rounded_feerate(estimate[1]) + " ${:0.2f}".format(round(price_for_250*float(estimate[1]),2))+"\n"
 
         count_str = f"{bitcoin.getblockcount():,d}"
         tweet += "Block height: "+ count_str+"\n"

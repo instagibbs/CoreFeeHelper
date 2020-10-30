@@ -24,6 +24,7 @@ while True:
         return rate
 
     try:
+        mempool_info = bitcoin.getmempoolinfo()
         nextblock = ["Next: ", bitcoin.estimatesmartfee(1, "ECONOMICAL")["feerate"]]
         hour = ["1h:   ", bitcoin.estimatesmartfee(6, "ECONOMICAL")["feerate"]]
         six_hours = ["6h:   ", bitcoin.estimatesmartfee(6*6, "ECONOMICAL")["feerate"]]
@@ -31,18 +32,19 @@ while True:
         day = ["1d:   ", bitcoin.estimatesmartfee(144, "ECONOMICAL")["feerate"]]
         half_week = ["3d:   ", bitcoin.estimatesmartfee(int(144*3.5), "ECONOMICAL")["feerate"]]
         week = ["1wk:  ", bitcoin.estimatesmartfee(144*7, "ECONOMICAL")["feerate"]]
+        mem_min = ["Min:  ", mempool_info["mempoolminfee"]]
 
         bitstampprice = urllib.request.urlopen("https://www.bitstamp.net/api/v2/ticker/btcusd/").read()
         latest_price = float(json.loads(bitstampprice)["last"])
         price_for_250 = latest_price/4 # Price for 250 byte tx
 
         tweet = ""
-        for estimate in [nextblock, hour, six_hours, twelve_hours, day, half_week, week]:
+        for estimate in [nextblock, hour, six_hours, twelve_hours, day, half_week, week, mem_min]:
             tweet += estimate[0]+get_rounded_feerate(estimate[1]) + " ${:0.2f}".format(round(price_for_250*float(estimate[1]),2))+"\n"
 
         count_str = f"{bitcoin.getblockcount():,d}"
         tweet += "Block height: "+ count_str+"\n"
-        tweet += "Mempool depth: "+str(int(bitcoin.getmempoolinfo()["bytes"]/1000/1000))
+        tweet += "Mempool depth: "+str(int(mempool_info["bytes"]/1000/1000))
         if bitcoin.getblockcount() % 8 == 0:
             tweet += "\nTip me! https://tippin.me/@CoreFeeHelper"
 

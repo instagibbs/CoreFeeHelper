@@ -45,8 +45,6 @@ while True:
         count_str = f"{bitcoin.getblockcount():,d}"
         tweet += "Block height: "+ count_str+"\n"
         tweet += "Mempool depth: "+str(int(mempool_info["bytes"]/1000/1000))
-        if bitcoin.getblockcount() % 8 == 0:
-            tweet += "\nTip me! https://tippin.me/@CoreFeeHelper"
 
     except Exception as e:
         print("Couldn't estimate. Sleeping: {}".format(str(e)))
@@ -62,6 +60,15 @@ while True:
     try:
         api.update_status(tweet)
         print(tweet)
+
+        if bitcoin.getblockcount() % 10 == 0:
+            print("Shilling.")
+            try:
+                api.update_status("Tip me! https://tippin.me/@CoreFeeHelper")
+            except Exception as e:
+                print("Error: "+str(e))
+                pass
+
     except tweepy.TweepError as err:
         print("Error: "+str(err))
         print(tweet)

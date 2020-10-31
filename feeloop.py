@@ -9,9 +9,9 @@ import json
 import re
 import sys
 
-# Requires running Core RPC server, tweepy auth fill out below
-if len(sys.argv) < 3:
-    raise Exception('feeloop.py <RPC username> <RPC password>')
+# Requires running Core RPC server on standard mainnet RPC port
+if len(sys.argv) < 7:
+    raise Exception('feeloop.py <RPC username> <RPC password> <oauth1> <oauth2> <token1> <token2>')
 
 while True:
     bitcoin_req = "http://"+sys.argv[1]+":"+sys.argv[2]+"@127.0.0.1:8332"
@@ -53,8 +53,8 @@ while True:
 
     print("Getting tweepy auth")
     # See http://docs.tweepy.org/en/latest/
-    auth = tweepy.OAuthHandler("FIXME", "FIXME")
-    auth.set_access_token("FIXME", "FIXME")
+    auth = tweepy.OAuthHandler(sys.argv[3], sys.argv[4])
+    auth.set_access_token(sys.argv[5], sys.argv[6])
     api = tweepy.API(auth)
 
     try:

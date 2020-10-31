@@ -8,10 +8,9 @@ cd CoreFeeHelper
 pip install tweepy # Or install your own favorite way
 ```
 
-Edit the tweepy fields that are `FIXME` to get Twitter auth working.
 
 ```
-./feeloop.py <RPC username> <RPC password>
+./feeloop.py <RPC username> <RPC password> <oauth1> <oauth2> <token1> <token2>
 ```
 
 Profit.

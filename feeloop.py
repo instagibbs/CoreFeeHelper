@@ -64,7 +64,9 @@ while True:
         if bitcoin.getblockcount() % 10 == 0:
             print("Shilling.")
             try:
-                api.update_status("Tip me! https://tippin.me/@CoreFeeHelper")
+                tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\n3DEahuyS8A4j5qbftjrYQhrpsU5dsCt5kG"
+                api.update_status(tweet2)
+                print("\n"+tweet2+"\n")
             except Exception as e:
                 print("Error: "+str(e))
                 pass

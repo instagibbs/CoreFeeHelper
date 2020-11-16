@@ -64,7 +64,7 @@ while True:
         if blockcount % 10 == 0:
             print("Shilling.")
             try:
-                tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\n3DEahuyS8A4j5qbftjrYQhrpsU5dsCt5kG\n\n{}".format(blockcount)
+                tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\nbc1qrxerpee9kqyguw629p92a0l08e7afre4pfnv6h\n\n{}".format(blockcount)
                 api.update_status(tweet2)
                 print("\n"+tweet2+"\n")
             except Exception as e:

@@ -61,7 +61,7 @@ while True:
         api.update_status(tweet)
         print(tweet)
         blockcount = bitcoin.getblockcount()
-        if blockcount % 10 == 0:
+        if blockcount % 15 == 0:
             print("Shilling.")
             try:
                 tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\n{}".format(blockcount)

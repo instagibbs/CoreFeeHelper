@@ -71,7 +71,7 @@ while True:
                 print("Error: "+str(e))
                 pass
 
-    except tweepy.TweepError as err:
+    except Exception as err:
         print("Error: "+str(err))
         print(tweet)
         print("------------------")

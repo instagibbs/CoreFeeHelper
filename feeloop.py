@@ -36,11 +36,11 @@ while True:
 
         bitstampprice = urllib.request.urlopen("https://www.bitstamp.net/api/v2/ticker/btcusd/").read()
         latest_price = float(json.loads(bitstampprice)["last"])
-        price_for_250 = latest_price/4 # Price for 250 byte tx
+        price_for_250 = latest_price*(211/1000) # Price for 2-input-2-output taproot rx (211 vbytes)
 
         tweet = ""
         for estimate in [nextblock, hour, six_hours, twelve_hours, day, half_week, week, mem_min]:
-            tweet += estimate[0]+get_rounded_feerate(estimate[1]) + " ${:0.2f}".format(round(price_for_250*float(estimate[1]),2))+"\n"
+            tweet += estimate[0]+get_rounded_feerate(estimate[1]) + " ${:0.3f}".format(round(price_for_250*float(estimate[1]),3))+"\n"
 
         count_str = f"{bitcoin.getblockcount():,d}"
         tweet += "Block height: "+ count_str+"\n"

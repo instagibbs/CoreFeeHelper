@@ -64,13 +64,13 @@ while True:
         if blockcount % 15 == 0:
             print("Shilling.")
             try:
-                tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\n{}".format(blockcount)
-                api.update_status(tweet2)
+                media = api.media_upload("invoice.png")
+                tweet2 = "Tip me!\n\n{}".format(blockcount)
+                api.update_status(status=tweet2, media_ids=[media.media_id])
                 print("\n"+tweet2+"\n")
             except Exception as e:
                 print("Error: "+str(e))
                 pass
-
     except Exception as err:
         print("Error: "+str(err))
         print(tweet)

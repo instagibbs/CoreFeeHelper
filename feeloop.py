@@ -51,25 +51,23 @@ while True:
         time.sleep(3600)
         continue
 
-    print("Getting tweepy auth")
-    # See http://docs.tweepy.org/en/latest/
-    auth = tweepy.OAuthHandler(sys.argv[3], sys.argv[4])
-    auth.set_access_token(sys.argv[5], sys.argv[6])
-    api = tweepy.API(auth)
-
     try:
-        api.update_status(tweet)
-        print(tweet)
-        blockcount = bitcoin.getblockcount()
-        if blockcount % 15 == 0:
-            print("Shilling.")
-            try:
-                tweet2 = "Tip me!\n\nhttps://tippin.me/@CoreFeeHelper\n\n{}".format(blockcount)
-                api.update_status(tweet2)
-                print("\n"+tweet2+"\n")
-            except Exception as e:
-                print("Error: "+str(e))
-                pass
+        client = tweepy.Client(
+            consumer_key=sys.argv[3],
+            consumer_secret=sys.argv[4],
+            access_token=sys.argv[5],
+            access_token_secret=sys.argv[6],
+        )
+
+        # Post the tweet
+        response = client.create_tweet(text=tweet)
+
+        # Check response
+        if response.data:
+            print("Tweet successfully posted!")
+            print("Tweet ID:", response.data['id'])
+        else:
+            print("Failed to post tweet. Response:", response)
 
     except Exception as err:
         print("Error: "+str(err))
